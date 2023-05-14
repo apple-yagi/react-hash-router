@@ -41,3 +41,14 @@ jobs:
         uses: ./.github/actions/setup-deps
       - name: Build
         run: pnpm build
+
+  test:
+    runs-on: ubuntu-22.04
+    needs: [setup-deps]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup deps
+        uses: ./.github/actions/setup-deps
+      - name: Test
+        run: pnpm test
