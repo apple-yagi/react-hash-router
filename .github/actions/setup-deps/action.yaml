@@ -1,0 +1,31 @@
+name: Setup deps for CI
+description: setup of Node, pnpm, and restore node_modules from the cache.
+
+runs:
+  using: 'composite'
+
+  steps:
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: false
+      - name: Cache Restore devDependencies
+        id: cache-restore-dev-depends
+        uses: actions/cache/restore@v3
+        with:
+            path: '**/node_modules'
+            key: dev-depends-node${{ env.NODE_VERSION }}-${{ hashFiles('pnpm-lock.yaml') }}
+      - name: Install dependencies
+        if: steps.cache-restore-dev-depends.outputs.cache-hit != 'true'
+        shell: bash
+        run: pnpm install --frozen-lockfile --ignore-scripts
+      - name: Cache Save devDependencies
+        if: steps.cache-restore-dev-depends.outputs.cache-hit != 'true'
+        id: cache-save-dev-depends
+        uses: actions/cache/save@v3
+        with:
+            path: '**/node_modules'
+            key: dev-depends-node${{ env.NODE_VERSION }}-${{ hashFiles('pnpm-lock.yaml') }}

@@ -1,0 +1,41 @@
+{
+  "name": "react-hash-router",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "main": "./dist/react-hash-router.umd.js",
+  "module": "./dist/react-hash-router.es.js",
+  "types": "./types/index.d.ts",
+  "files": [
+    "/dist",
+    "/types"
+  ],
+  "scripts": {
+    "prepare": "git config --local core.hooksPath .githooks",
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "lint": "xo src --ext ts,tsx --fix --report-unused-disable-directives --max-warnings 0",
+    "format": "prettier --write src/*",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@types/node": "^20.1.4",
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11",
+    "@typescript-eslint/eslint-plugin": "^5.57.1",
+    "@typescript-eslint/parser": "^5.57.1",
+    "@vitejs/plugin-react-swc": "^3.0.0",
+    "eslint": "^8.38.0",
+    "eslint-config-xo-react": "^0.27.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "lint-staged": "^13.2.2",
+    "prettier": "^2.8.8",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "typescript": "^5.0.2",
+    "vite": "^4.3.2",
+    "xo": "^0.54.2"
+  }
+}

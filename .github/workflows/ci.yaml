@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+env:
+  NODE_VERSION: 18
+
+jobs:
+  setup-deps:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup deps
+        uses: ./.github/actions/setup-deps
+
+  lint:
+    runs-on: ubuntu-22.04
+    needs: [setup-deps]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup deps
+        uses: ./.github/actions/setup-deps
+      - name: Lint
+        run: pnpm lint
+
+  build:
+    runs-on: ubuntu-22.04
+    needs: [setup-deps]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup deps
+        uses: ./.github/actions/setup-deps
+      - name: Build
+        run: pnpm build
